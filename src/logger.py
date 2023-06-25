@@ -9,8 +9,8 @@ logs_path = os.path.join(
 os.makedirs(logs_path, exist_ok=True)  # Creating the logs directory if it doesn't exist
 
 LOG_FILE_PATH = os.path.join(
-    logs_path, LOG_FILE
-)  # Creating the full path for the log file
+    logs_path, LOG_FILE  # Creating the full path for the log file
+)
 
 logging.basicConfig(
     filename=LOG_FILE_PATH,  # Setting the log file path
