@@ -19,13 +19,28 @@ from src.utils import save_object, evaluate_models
 
 @dataclass
 class ModelTrainerConfig:
+  """Configuration class for model trainer."""
   trained_model_file_path=os.path.join('artifacts', 'model.pkl')
   
 class ModelTrainer:
+  """Class responsible for training and evaluating regression models."""
   def __init__(self):
     self.model_trainer_config=ModelTrainerConfig()
     
   def initiate_model_trainer(self, train_array, test_array):
+    """
+    Initiates the model training and evaluation process.
+
+    Args:
+        train_array (ndarray): Training data array with input features and target variable.
+        test_array (ndarray): Test data array with input features and target variable.
+
+    Returns:
+        float: R-squared score of the best model.
+
+    Raises:
+        CustomException: If an exception occurs during model training or evaluation.
+    """
     try:
       logging.info('Split training and test input data')
       X_train, y_train, X_test, y_test = (

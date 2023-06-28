@@ -15,16 +15,27 @@ from src.components.model_trainer import ModelTrainer
 
 @dataclass
 class DataIngestionConfig:
+    """Configuration class for data ingestion."""
     train_data_path: str = os.path.join("artifacts", "train_data.csv")
     test_data_path: str = os.path.join("artifacts", "test_data.csv")
     raw_data_path: str = os.path.join("artifacts", "raw_data.csv")
 
 
 class DataIngestion:
+    """Class responsible for data ingestion."""
     def __init__(self):
         self.ingestion_config = DataIngestionConfig()
 
     def initiate_data_ingestion(self):
+        """
+        Initiates the data ingestion process.
+        
+        Returns:
+            Tuple: Paths to the train and test data files.
+        
+        Raises:
+            CustomException: If an exception occurs during data ingestion.
+        """
         logging.info("Entered the data ingestion method or component")
         try:
             df = pd.read_csv('notebook/data/stud.csv')
@@ -33,16 +44,21 @@ class DataIngestion:
             os.makedirs(
                 os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True
             )
-
+            
+            # Save the raw data to a CSV file
             df.to_csv(self.ingestion_config.raw_data_path, index=False, header=True)
 
             logging.info("Train test split initiated")
+            
+            # Perform train-test split
             train_set, test_set = train_test_split(df, test_size=0.2, random_state=42)
-
+            
+            # Save the train set to a CSV file
             train_set.to_csv(
                 self.ingestion_config.train_data_path, index=False, header=True
             )
-
+            
+            # Save the test set to a CSV file
             test_set.to_csv(
                 self.ingestion_config.test_data_path, index=False, header=True
             )

@@ -3,6 +3,17 @@ from src.logger import logging
 
 
 def error_message_details(error, error_detail: sys):
+    """
+    Generate an error message with detailed information about the error.
+
+    Args:
+        error (Exception): The original exception object.
+        error_detail (sys): The sys module containing traceback information.
+
+    Returns:
+        str: Error message with details.
+
+    """
     _, _, exc_tb = error_detail.exc_info()  # Retrieving the exception information
     file_name = (
         exc_tb.tb_frame.f_code.co_filename
@@ -17,6 +28,17 @@ def error_message_details(error, error_detail: sys):
 
 
 class CustomException(Exception):
+    """
+    Custom exception class that includes detailed error information.
+
+    Args:
+        error_message (str): The error message.
+        error_detail (sys): The sys module containing traceback information.
+
+    Attributes:
+        error_message (str): The error message with details.
+
+    """
     def __init__(self, error_message, error_detail: sys):
         super().__init__(
             error_message
@@ -27,6 +49,13 @@ class CustomException(Exception):
         )
 
     def __str__(self):
+        """
+        Return the error message.
+
+        Returns:
+            str: The error message with details.
+
+        """
         return self.error_message  # Returning the error message
 
 

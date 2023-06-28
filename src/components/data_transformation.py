@@ -15,16 +15,24 @@ from src.logger import logging
 from src.utils import save_object
 
 class DataTransformationConfig:
+  """Configuration class for data transformation."""
   preprocessor_obj_file_path=os.path.join('artifacts', 'preprocessor.pkl')
   
 class DataTransformation:
+  """Class responsible for data transformation."""
   def __init__(self):
     self.data_transformation_config=DataTransformationConfig()
     
   def get_data_transformer_object(self):
-    '''
-    this function is responsible for data transformation
-    '''
+    """
+    Obtains the data transformer object for data preprocessing.
+
+    Returns:
+        ColumnTransformer: Preprocessing object for numerical and categorical columns.
+
+    Raises:
+        CustomException: If an exception occurs during data transformation.
+    """
     try:
       numerical_columns = ['writing_score', 'reading_score']
       categorical_columns = [
@@ -66,6 +74,19 @@ class DataTransformation:
     
   
   def initiate_data_transformation(self, train_path, test_path):
+    """
+    Initiates the data transformation process.
+
+    Args:
+        train_path (str): Path to the train data file.
+        test_path (str): Path to the test data file.
+
+    Returns:
+        Tuple: Transformed train and test data arrays, and path to the preprocessor object file.
+
+    Raises:
+        CustomException: If an exception occurs during data transformation.
+    """
     try:
       train_df = pd.read_csv(train_path)
       test_df = pd.read_csv(test_path)
