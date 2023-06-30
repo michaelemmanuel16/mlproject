@@ -60,8 +60,38 @@ class ModelTrainer:
         "AdaBoost Regressor": AdaBoostRegressor()
         }
       
+      params = {
+        "Linear Regression": {
+          'fit_intercept':[True, False],
+        },
+        "K-Neighbors Regressor": {
+          'n_neighbors':[5, 7, 9, 11],
+          # 'weights':['uniform', 'distance'],
+          'algorithm':['ball_tree', 'kd_tree', 'brute']
+        },
+        "Decision Tree": {
+          'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
+          # 'splitter':['best', 'random'],
+          # 'max_features':['sqrt', 'log2']
+          
+        },
+        "Random Forest Regressor": {
+          # 'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
+          # 'max_features':['sqrt', 'log2'],
+          'n_estimators':[8, 16, 32, 64, 128, 256]
+        },
+        "XGBRegressor": {
+          'learning_rate':[.1, .01, .05, .001],
+          'n_estimators':[8, 16, 32, 64, 128, 256],
+        }, 
+        "AdaBoost Regressor": {
+          'learning_rate':[.1, .01, .05, .001],
+          'n_estimators':[8, 16, 32, 64, 128, 256],
+        }
+      }
+      
       model_report:dict=evaluate_models(
-        X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test, models=models
+        X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test, models=models, params=params
         )
       
       # Get the best model score
